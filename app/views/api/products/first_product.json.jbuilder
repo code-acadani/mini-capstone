@@ -1,0 +1,1 @@
+json.first_product @product
