@@ -1,1 +1,0 @@
-json.second_product @product
