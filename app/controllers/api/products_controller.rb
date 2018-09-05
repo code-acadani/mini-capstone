@@ -11,8 +11,11 @@ class Api::ProductsController < ApplicationController
 	   description: params[:description],
 	   image_url: params[:image_url]
 	  )
-	  @product.save
-	  render 'show.json.jbuilder'
+	  if @product.save
+	  	render 'show.json.jbuilder'
+	  else
+	  	render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
+	  end
 	end
 
 	def show
