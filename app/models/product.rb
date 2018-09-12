@@ -1,5 +1,9 @@
 class Product < ApplicationRecord
 
+	def supplier
+		Supplier.find_by(id: supplier_id) #returns a supplier hash
+	end
+
 	validates :name, presence: true
 	validates :name, uniqueness: true
 	validates :name, length: { maximum: 40 }
