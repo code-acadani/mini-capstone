@@ -1,5 +1,7 @@
 class Api::OrdersController < ApplicationController
 
+	before_action :authenticate_user
+
 	def index
 		@orders = current_user.orders
 		render 'index.json.jbuilder'
@@ -26,4 +28,5 @@ class Api::OrdersController < ApplicationController
       render json: {errors: @order.errors.full_messages}, status: :bad_request
     end
 	end
+	
 end

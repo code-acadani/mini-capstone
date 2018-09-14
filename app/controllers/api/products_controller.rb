@@ -1,4 +1,7 @@
 class Api::ProductsController < ApplicationController
+
+	before_action :authenticate_admin, except: [:index, :show]
+
 	def index
 	  @products = Product.all
 
@@ -15,6 +18,11 @@ class Api::ProductsController < ApplicationController
 	  render 'index.json.jbuilder'
 	end
 
+	def show
+	  @product = Product.find(params[:id])
+	  render 'show.json.jbuilder'
+	end
+
 	def create
 	  @product = Product.new(
 	   name: params[:name],
@@ -26,11 +34,6 @@ class Api::ProductsController < ApplicationController
 	  else #sad path
 	  	render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
 	  end
-	end
-
-	def show
-	  @product = Product.find(params[:id])
-	  render 'show.json.jbuilder'
 	end
 
 	def update
