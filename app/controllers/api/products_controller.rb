@@ -9,10 +9,15 @@ class Api::ProductsController < ApplicationController
 	  	@products = Product.where("name LIKE ?", "%#{params[:name]}%")
 	  end
 
-	  if params[:price_sort]
-	  	@products = @products.order(price: :asc)
-	  else 
-	  	@products = @products.order(id: :asc)
+	  # if params[:price_sort]
+	  # 	@products = @products.order(price: :asc)
+	  # else 
+	  # 	@products = @products.order(id: :asc)
+	  # end
+
+	  if params[:category]
+	  	category = Category.find_by(name: params[:category])
+	  	@products = category.products
 	  end
 
 	  render 'index.json.jbuilder'
