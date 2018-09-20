@@ -3,13 +3,17 @@ class Product < ApplicationRecord
 	# def supplier
 	# 	Supplier.find_by(id: supplier_id) #returns a supplier hash
 	# end
-	
+
+	has_many :carted_products
+	has_many :orders, through: :carted_products
 	has_many :category_products
 	has_many :categories, through: :category_products
-
 	belongs_to :supplier
 	has_many :images
-	has_many :orders
+
+	def category_names
+		categories.map { |category| category.name }
+	end
 
 	validates :name, presence: true
 	validates :name, uniqueness: true

@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
 	belongs_to :user #returns a user hash
-	belongs_to :product #returns a product hash
+	has_many :carted_products
+	has_many :products, through: :carted_products
 end
